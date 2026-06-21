@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ExpertConnect Africa — Book Trusted Professionals</title>
+<meta name="description" content="Find and book trusted professionals across Africa. Doctors, lawyers, tutors, accountants, and more.">
+<link rel="stylesheet" href="/css/main.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <div class="logo" onclick="App.go('home')"><div class="logo-mark">⚡</div>ExpertConnect</div>
+    <div class="nav-links" id="navLinks">
+      <a href="#" class="active" data-page="home" onclick="App.go('home')">Home</a>
+      <a href="#" data-page="browse" onclick="App.go('browse')">Browse</a>
+      <a href="#" data-page="favourites" onclick="App.go('favourites')">❤️ Favourites</a>
+      <a href="#" data-page="ai" onclick="App.go('ai')">AI</a>
+      <a href="#" data-page="emergency" onclick="App.go('emergency')">Emergency</a>
+    </div>
+    <div class="nav-actions">
+      <button class="btn btn-ghost btn-sm" onclick="App.toggleDark()" title="Dark mode">🌙</button>
+      <button class="btn btn-amber btn-sm" id="refBtn" onclick="App.getReferralLink()" style="display:none">🔗 Refer</button>
+      <button class="btn btn-outline btn-sm" id="loginBtn" onclick="App.modal('login')">Log in</button>
+      <button class="btn btn-primary btn-sm" id="signupBtn" onclick="App.modal('signup')">Sign up</button>
+      <button class="avatar-btn" id="avatarBtn" onclick="App.toggleDropdown()">
+        <span id="avatarText">T</span>
+        <div class="dropdown" id="userDropdown">
+          <a href="#" onclick="App.go('dashboard');App.toggleDropdown()">📊 Dashboard</a>
+          <a href="#" onclick="App.go('dashboard');App.toggleDropdown()">📄 Documents</a>
+          <a href="#" onclick="App.go('dashboard');App.toggleDropdown()">💰 Invoices</a>
+          <hr>
+          <button onclick="App.logout()">🚪 Log out</button>
+        </div>
+      </button>
+      <button class="hamburger" onclick="App.toggleMobile()"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-nav" id="mobileNav">
+  <a href="#" onclick="App.go('home');App.toggleMobile()">🏠 Home</a>
+  <a href="#" onclick="App.go('browse');App.toggleMobile()">🔍 Browse</a>
+  <a href="#" onclick="App.go('ai');App.toggleMobile()">🤖 AI Assistant</a>
+  <a href="#" onclick="App.go('emergency');App.toggleMobile()">🚨 Emergency</a>
+  <a href="#" onclick="App.go('dashboard');App.toggleMobile()">📊 Dashboard</a>
+</div>
+
+<!-- ======== HOME ======== -->
+<div class="page active" id="page-home">
+  <section class="hero">
+    <div class="container">
+      <div>
+        <h1>Book <span>trusted experts</span> across Africa</h1>
+        <p>One platform to find, book, connect, and pay trusted professionals. Video, voice, chat, or in-person visits.</p>
+        <div class="hero-search">
+          <input placeholder="Find a doctor, lawyer, tutor..." id="heroSearch" onkeyup="if(event.key==='Enter')App.heroSearch()">
+          <select id="heroCategory"><option value="">All categories</option></select>
+          <button class="btn btn-amber" onclick="App.heroSearch()">Search</button>
+        </div>
+        <div class="hero-badges">
+          <span class="hero-badge">📹 Video calls</span>
+          <span class="hero-badge">📞 Voice calls</span>
+          <span class="hero-badge">💬 Live chat</span>
+          <span class="hero-badge">🏠 House visits</span>
+          <span class="hero-badge">🏥 In person</span>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat"><div class="num">2,500+</div><div class="label">Professionals</div></div>
+          <div class="hero-stat"><div class="num">50,000+</div><div class="label">Bookings</div></div>
+          <div class="hero-stat"><div class="num">4.8★</div><div class="label">Average rating</div></div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-card">
+          <div class="t"><div class="av">Dr</div><div class="info"><h3>Dr. Amina Osei</h3><p>GP • 4.9★</p></div></div>
+          <div class="hero-ct">
+            <div class="hero-ct-item active" onclick="App.selectConsult(this)">📹 Video</div>
+            <div class="hero-ct-item" onclick="App.selectConsult(this)">📞 Voice</div>
+            <div class="hero-ct-item" onclick="App.selectConsult(this)">💬 Chat</div>
+            <div class="hero-ct-item" onclick="App.selectConsult(this)">🏥 Visit</div>
+          </div>
+          <div class="hero-slots">
+            <div class="hero-slot" onclick="App.selectSlot(this)">Mon<small>9:00</small></div>
+            <div class="hero-slot active" onclick="App.selectSlot(this)">Tue<small>10:30</small></div>
+            <div class="hero-slot" onclick="App.selectSlot(this)">Wed<small>14:00</small></div>
+            <div class="hero-slot" onclick="App.selectSlot(this)">Thu<small>11:00</small></div>
+            <div class="hero-slot" onclick="App.selectSlot(this)">Fri<small>15:30</small></div>
+          </div>
+          <button class="btn btn-amber" style="width:100%" onclick="App.qb(1)">Book — R350</button>
+        </div>
+        <div class="f-card fc-1"><div class="i g">✓</div><div><h4>Confirmed!</h4><p>Tue 10:30 AM</p></div></div>
+        <div class="f-card fc-2"><div class="i a">★</div><div><h4>5-star review</h4><p>"Excellent doctor"</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title tac">Find the right professional</h2>
+      <p class="section-subtitle tac">Browse 8 categories with thousands of verified experts.</p>
+      <div class="cat-grid" id="categoryGrid"></div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <h2 class="section-title tac">How it works</h2>
+      <div class="steps" style="margin-top:32px">
+        <div class="step"><div class="step-n">1</div><h3>Search</h3><p>Find professionals by category, location, or need</p></div>
+        <div class="step"><div class="step-n">2</div><h3>Choose</h3><p>Pick video, voice, chat, house visit, or office</p></div>
+        <div class="step"><div class="step-n">3</div><h3>Book & pay</h3><p>Book instantly and pay securely online</p></div>
+        <div class="step"><div class="step-n">4</div><h3>Connect</h3><p>Meet your professional and get expert help</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title tac">Top rated professionals</h2>
+      <div class="pro-grid" style="margin-top:32px" id="featuredGrid"></div>
+      <div class="tac" style="margin-top:32px"><button class="btn btn-outline btn-lg" onclick="App.go('browse')">View all professionals →</button></div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <h2 class="section-title tac">For professionals</h2>
+      <p class="section-subtitle tac">Join ExpertConnect and grow your practice. Start free, upgrade as you grow.</p>
+      <div class="pricing-grid">
+        <div class="pricing-card"><h3>Starter</h3><div class="price">Free</div><p class="desc">Getting started</p><ul><li>Professional profile</li><li>20 bookings/month</li><li>10% commission</li><li>Basic dashboard</li></ul><button class="btn btn-outline" style="width:100%" onclick="App.modal('signup')">Get started</button></div>
+        <div class="pricing-card featured"><h3>Professional</h3><div class="price">R299<span>/month</span></div><p class="desc">Best for growing practices</p><ul><li>Unlimited bookings</li><li>5% commission</li><li>Video consultations</li><li>Featured listing</li><li>Priority support</li></ul><button class="btn btn-primary" style="width:100%" onclick="App.modal('signup')">Go professional</button></div>
+        <div class="pricing-card"><h3>Enterprise</h3><div class="price">R799<span>/month</span></div><p class="desc">Clinics, firms & groups</p><ul><li>Team accounts</li><li>2.5% commission</li><li>Custom branding</li><li>API access</li><li>Dedicated manager</li></ul><button class="btn btn-outline" style="width:100%" onclick="App.modal('signup')">Contact sales</button></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="container">
+      <h2>Ready to connect with experts?</h2>
+      <p>Join 50,000+ users and 2,500+ professionals across Africa.</p>
+      <div class="cta-btns">
+        <button class="btn btn-white btn-lg" onclick="App.go('browse')">Find a professional</button>
+        <button class="btn btn-amber btn-lg" onclick="App.modal('signup')">Join as professional</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ======== BROWSE ======== -->
+<div class="page" id="page-browse">
+  <div class="browse-h"><div class="container">
+    <h1>Browse professionals</h1>
+    <div class="browse-bar">
+      <input placeholder="Search by name, speciality, location..." id="browseSearch" oninput="App.filter()">
+      <select id="browseCategory" onchange="App.filter()"><option value="">All categories</option></select>
+      <select id="browseSort" onchange="App.filter()"><option value="">Featured</option><option value="rating">Highest rated</option><option value="price_low">Price: low to high</option><option value="price_high">Price: high to low</option><option value="reviews">Most reviews</option></select>
+    </div>
+    <div class="filter-chips" id="filterChips"></div>
+    <div class="browse-x">
+      <label><input type="checkbox" id="filterVideo" onchange="App.filter()"> Video consultations</label>
+      <label><input type="checkbox" id="filterHouse" onchange="App.filter()"> House calls</label>
+      <label><input type="checkbox" id="filterVerified" onchange="App.filter()"> Verified only</label>
+    </div>
+  </div></div>
+  <div class="section"><div class="container">
+    <div class="browse-c" id="browseCount"></div>
+    <div class="pro-grid" id="browseGrid"></div>
+  </div></div>
+</div>
+
+<!-- ======== AI ======== -->
+<div class="page" id="page-ai">
+  <div class="section" style="padding-top:90px"><div class="container" style="max-width:640px">
+    <h2 class="section-title tac">🤖 AI assistant</h2>
+    <p class="section-subtitle tac">Describe what you need and I'll find the right professional.</p>
+    <div class="ai-box">
+      <div class="ai-msgs" id="aiMessages">
+        <div class="ai-msg bot">Hello! 👋 Tell me what you need — "I have a toothache", "I need legal advice", "I feel anxious".</div>
+      </div>
+      <div class="ai-in"><input placeholder="What do you need?" id="aiInput" onkeyup="if(event.key==='Enter')App.aiSend()"><button class="btn btn-primary" onclick="App.aiSend()">Send</button></div>
+    </div>
+  </div></div>
+</div>
+
+<!-- ======== EMERGENCY ======== -->
+<div class="page" id="page-emergency">
+  <div class="section" style="padding-top:90px"><div class="container">
+    <h2 class="section-title tac" style="color:var(--red)">🚨 Emergency services</h2>
+    <p class="section-subtitle tac">24/7 emergency contacts across South Africa. Call now for immediate help.</p>
+    <div class="e-grid" id="emergencyGrid"></div>
+  </div></div>
+</div>
+
+<!-- ======== PROFILE ======== -->
+<div class="page" id="page-profile">
+  <div class="profile-h"><div class="container">
+    <div class="profile-top">
+      <div class="profile-av" id="profileAvatar">AO</div>
+      <div class="profile-info">
+        <h1 id="profileName">Dr. Amina Osei</h1>
+        <div class="s" id="profileSpec">General Practitioner</div>
+        <div class="l" id="profileLoc">📍 Sandton, Johannesburg</div>
+        <div class="profile-badges" id="profileBadges"></div>
+        <div class="profile-stats" id="profileStats"></div>
+      </div>
+      <div class="profile-actions">
+        <button class="btn btn-white" onclick="App.go('ai')">💬 Message</button>
+        <button class="btn btn-amber" onclick="App.modal('booking')">📅 Book now</button>
+      </div>
+    </div>
+  </div></div>
+  <div class="container profile-body">
+    <div>
+      <div class="card"><h2>About</h2><p id="profileBio" style="line-height:1.7;color:var(--slate-600);font-size:.9375rem"></p></div>
+      <div class="card"><h2>Services & pricing</h2><div id="profileServices"></div></div>
+      <div class="card"><h2>Reviews</h2><div id="profileReviews"></div></div>
+    </div>
+    <div class="sidebar">
+      <div class="sidebar-card">
+        <h3>Book appointment</h3>
+        <div class="fg"><label>Type</label><select id="bookingType"><option value="online">📹 Online</option><option value="inperson">🏥 In-person</option><option value="house">🏠 House call</option></select></div>
+        <div class="fg" id="consultGroup"><label>Connect via</label><select id="consultType"><option value="video">📹 Video</option><option value="voice">📞 Voice</option><option value="chat">💬 Chat</option></select></div>
+        <div class="fg"><label>Service</label><select id="bookingService"></select></div>
+        <div class="fr"><div class="fg"><label>Date</label><input type="date" id="bookingDate"></div><div class="fg"><label>Time</label><select id="bookingTime"><option>09:00</option><option>09:30</option><option>10:00</option><option>10:30</option><option>11:00</option><option>11:30</option><option>14:00</option><option>14:30</option><option>15:00</option><option>15:30</option><option>16:00</option></select></div></div>
+        <div class="fg"><label>Family member? <span style="font-weight:400;color:var(--slate-400)">(optional)</span></label><input placeholder="e.g. My mother" id="bookingFamily"></div>
+        <div class="fg"><label>Notes</label><textarea placeholder="Reason for your visit..." id="bookingNotes"></textarea></div>
+        <button class="btn btn-primary" style="width:100%" onclick="App.modal('booking')">Continue →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======== DASHBOARD ======== -->
+<div class="page" id="page-dashboard">
+  <div class="section" style="padding-top:90px"><div class="container">
+    <h1 style="font-size:1.625rem;font-weight:700;margin-bottom:4px" id="dashTitle">Welcome back! 👋</h1>
+    <p style="color:var(--slate-400);margin-bottom:32px">Your account overview.</p>
+    <div class="dash-g">
+      <div class="card"><h2>📅 My bookings</h2><div id="dashBookings"></div></div>
+      <div class="card"><h2>🔔 Notifications</h2><div id="dashNotifs"></div></div>
+      <div class="card"><h2>📄 Documents</h2><p style="color:var(--slate-400);margin-bottom:12px">Upload IDs, medical records, certificates.</p><button class="btn btn-outline btn-sm">📤 Upload</button></div>
+      <div class="card"><h2>💰 Invoices</h2><div id="dashInvoices"><p style="color:var(--slate-400)">No invoices yet.</p></div></div>
+    </div>
+  </div></div>
+</div>
+
+<!-- ======== FOOTER ======== -->
+<footer><div class="container">
+  <div class="footer-grid">
+    <div class="footer-brand"><div class="logo">⚡ ExpertConnect</div><p>Africa's premier platform for booking trusted professionals. Building local economies across the continent.</p></div>
+    <div class="footer-col"><h4>Clients</h4><a href="#" onclick="App.go('browse')">Find professionals</a><a href="#">How it works</a><a href="#" onclick="App.go('ai')">AI assistant</a></div>
+    <div class="footer-col"><h4>Pros</h4><a href="#" onclick="App.modal('signup')">Join as professional</a><a href="#">Plans</a><a href="#">Resources</a></div>
+    <div class="footer-col"><h4>Company</h4><a href="#">About</a><a href="#">Contact</a><a href="#">Privacy</a></div>
+  </div>
+  <div class="footer-bottom"><p>© 2025 ExpertConnect Africa</p><p>❤️ Built in Africa</p></div>
+</div></footer>
+
+<!-- ======== MODALS ======== -->
+<div class="modal-overlay" id="modal-login"><div class="modal">
+  <div class="modal-h"><h2>Welcome back</h2><button class="modal-close" onclick="App.closeModal('login')">✕</button></div>
+  <div class="modal-b">
+    <div class="fg"><label>Email</label><input type="email" placeholder="you@example.com" id="loginEmail"></div>
+    <div class="fg"><label>Password</label><input type="password" placeholder="Enter password" id="loginPass"></div>
+    <button class="btn btn-primary" style="width:100%" onclick="App.login()">Log in</button>
+    <div class="foot-link">No account? <a onclick="App.closeModal('login');App.modal('signup')">Sign up free</a></div>
+    <div class="demo-box"><strong>Demo:</strong><br>Email: amina@demo.com<br>Password: demo123</div>
+  </div>
+</div></div>
+
+<div class="modal-overlay" id="modal-signup"><div class="modal">
+  <div class="modal-h"><h2>Create account</h2><button class="modal-close" onclick="App.closeModal('signup')">✕</button></div>
+  <div class="modal-b">
+    <div class="fg"><label>I want to</label><select id="signupRole" onchange="App.togglePro()"><option value="client">Find & book professionals</option><option value="professional">Offer my services</option></select></div>
+    <div class="fr"><div class="fg"><label>First name</label><input type="text" placeholder="First" id="signupFirst"></div><div class="fg"><label>Last name</label><input type="text" placeholder="Last" id="signupLast"></div></div>
+    <div class="fg"><label>Email</label><input type="email" placeholder="you@example.com" id="signupEmail"></div>
+    <div class="fg"><label>Password</label><input type="password" placeholder="Min 6 characters" id="signupPass"></div>
+    <div class="fg"><label>Phone</label><input type="tel" placeholder="+27..." id="signupPhone"></div>
+    <div class="fg"><label>Province</label><input type="text" placeholder="Gauteng, Western Cape..." id="signupProv"></div>
+    <div id="proFields" style="display:none">
+      <div class="fg"><label>Category</label><select id="signupCat"><option value="">Select</option></select></div>
+      <div class="fg"><label>Specialty</label><input placeholder="e.g. General Practitioner" id="signupSpec"></div>
+      <div class="fg"><label>Business name</label><input placeholder="Practice name" id="signupBus"></div>
+      <div class="fg"><label>Price (R)</label><input type="number" placeholder="350" id="signupPrice"></div>
+    </div>
+    <button class="btn btn-primary" style="width:100%" onclick="App.signup()">Create account</button>
+    <div class="foot-link">Already have an account? <a onclick="App.closeModal('signup');App.modal('login')">Log in</a></div>
+  </div>
+</div></div>
+
+<div class="modal-overlay" id="modal-booking"><div class="modal">
+  <div class="modal-h"><h2>Confirm booking</h2><button class="modal-close" onclick="App.closeModal('booking')">✕</button></div>
+  <div class="modal-b">
+    <div class="bk-sum" id="bookingSummary"></div>
+    <h3 style="font-size:.9375rem;font-weight:600;margin-bottom:12px">Payment</h3>
+    <div class="fg"><label>Card number</label><input placeholder="4242 4242 4242 4242" maxlength="19"></div>
+    <div class="fr"><div class="fg"><label>Expiry</label><input placeholder="MM/YY" maxlength="5"></div><div class="fg"><label>CVV</label><input placeholder="123" maxlength="4"></div></div>
+    <div class="bk-total"><span>Total</span><span id="bookingTotal">R0.00</span></div>
+    <button class="btn btn-primary" style="width:100%" onclick="App.confirmBooking()">💳 Pay & confirm</button>
+    <p style="text-align:center;font-size:.75rem;color:var(--slate-400);margin-top:8px">🔒 SSL encrypted</p>
+  </div>
+</div></div>
+
+<!-- ======== CHAT ======== -->
+<div class="chat-w">
+  <div class="chat-win" id="chatWindow">
+    <div class="chat-h"><div><h3>💬 Support</h3><p>We reply within minutes</p></div><button class="modal-close" style="background:rgba(255,255,255,.15);color:#fff" onclick="App.closeChat()">✕</button></div>
+    <div class="chat-ms" id="chatMessages"><div class="chat-m r">Hello! 👋 How can we help?</div></div>
+    <div class="chat-in"><input placeholder="Type a message..." id="chatInput" onkeyup="if(event.key==='Enter')App.sendChat()"><button onclick="App.sendChat()">➤</button></div>
+  </div>
+  <button class="chat-btn" onclick="App.toggleChat()">💬</button>
+</div>
+
+<button class="em-fab" onclick="App.go('emergency')">🚨</button>
+
+<div class="toast" id="toast"><span class="ic">✅</span><span></span></div>
+
+<script src="/js/app.js"></script>
+</body>
+</html>
